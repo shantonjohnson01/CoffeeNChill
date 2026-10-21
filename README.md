@@ -111,3 +111,44 @@ The video demonstrates the running Functions application, storage integration, P
 ## Repository
 
 GitHub: [insert your repository URL]
+
+
+## Part 2 — Queue Triggers and Docker Compose
+
+### New Features
+
+- Added `POST /api/orders/queue`.
+- Added the `order-processing-queue` Azure Storage Queue.
+- Added the `ProcessOrderQueue` background function.
+- Added the `Orders` Azure Table for order tracking.
+- Added status transitions: Received → Preparing → Ready → Collected.
+- Added retry and poison-queue handling.
+- Added `GET /api/orders/{orderId}` for demonstration and status checks.
+- Added Docker Compose orchestration using the published Functions image.
+
+### Run Part 2
+
+1. Ensure Docker is installed and running.
+2. Configure the root `.env` file using the local Azurite connection string.
+3. Ensure the published Functions image is tagged `v2.0`.
+4. Run `docker compose pull`.
+5. Run `docker compose up -d`.
+6. Test the endpoints using the Postman collection.
+7. Use `docker compose logs -f functions` to view queue processing.
+
+### Part 2 Docker Hub Image
+
+`YOUR_DOCKERHUB_USERNAME/coffeenchill-functions:v2.0`
+
+### Part 2 Postman Collection
+
+`docs/CoffeeNChill-Part2.postman_collection.json`
+
+### Changelog
+
+- Part 1: Menu CRUD functions, Azure Table Storage, Blob Storage, standalone Docker containers.
+- Part 2: Queue-based order submission, background order processing, Orders table tracking, and Docker Compose orchestration.
+
+### Part 2 Demonstration Video
+
+YouTube: [insert the actual published video URL]
