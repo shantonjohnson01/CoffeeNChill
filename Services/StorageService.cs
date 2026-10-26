@@ -1,6 +1,8 @@
 ﻿
 using Azure.Data.Tables;
 using Azure.Storage.Blobs;
+using Azure.Storage.Queues;
+using Azure.Storage.Queues.Models;
 using CoffeeNChill.Functions.Models;
 using Microsoft.Extensions.Configuration;
 
@@ -10,6 +12,7 @@ public class StorageService
 {
     private readonly TableServiceClient _tableServiceClient;
     private readonly BlobServiceClient _blobServiceClient;
+    private readonly QueueServiceClient _queueServiceClient;
 
     public StorageService(IConfiguration configuration)
     {
@@ -20,6 +23,7 @@ public class StorageService
 
         _tableServiceClient = new TableServiceClient(connectionString);
         _blobServiceClient = new BlobServiceClient(connectionString);
+        _queueServiceClient = new QueueServiceClient(connectionString);
     }
 
     public async Task<TableClient> GetMenuTableAsync()
@@ -36,5 +40,21 @@ public class StorageService
 
         await container.CreateIfNotExistsAsync();
         return container;
+    }
+
+    public async Task<QueueClient> GetOrderQueueAsync()
+    {
+        QueueClient queue = _queueServiceClient.GetQueueClient(
+            "order-processing-queue");
+
+        await queue.CreateIfNotExistsAsync();
+        return queue;
+    }
+
+    public async Task<TableClient> GetOrdersTableAsync()
+    {
+        TableClient table = _tableServiceClient.GetTableClient("Orders");
+        await table.CreateIfNotExistsAsync();
+        return table;
     }
 }

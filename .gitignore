@@ -258,3 +258,11 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+.env
+**/local.settings.json
+**/bin/
+**/obj/
+.vs/
+.vscode/
+TestResults/
